@@ -40,6 +40,8 @@ func (q *QueryDoc) createSelect() (ParameterizedQuery, error) {
 		"%s %s FROM %s %s", queryTypes["select"], projections, q.Table, conditions,
 	))
 
+	query.generateQueryHash()
+
 	return query, nil
 }
 
@@ -62,6 +64,8 @@ func (q *QueryDoc) createInsert() (ParameterizedQuery, error) {
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
 		"%s INTO %s (%s) VALUES (%s)", queryTypes["insert"], q.Table, strings.Join(columns, ","), strings.Join(values, ","),
 	))
+
+	query.generateQueryHash()
 
 	return query, nil
 }
@@ -90,6 +94,8 @@ func (q *QueryDoc) createUpdate() (ParameterizedQuery, error) {
 		"%s %s SET %s %s", queryTypes["update"], q.Table, setStr, conditions,
 	))
 
+	query.generateQueryHash()
+
 	return query, nil
 }
 
@@ -115,6 +121,8 @@ func (q *QueryDoc) createDelete() (ParameterizedQuery, error) {
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
 		"%s%sFROM %s %s", queryTypes["delete"], colsList, q.Table, conditions,
 	))
+
+	query.generateQueryHash()
 
 	return query, nil
 }

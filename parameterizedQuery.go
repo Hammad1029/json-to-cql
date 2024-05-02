@@ -1,6 +1,8 @@
 package jsontocql
 
 import (
+	"crypto/md5"
+	"encoding/hex"
 	"errors"
 	"fmt"
 	"strings"
@@ -8,6 +10,7 @@ import (
 
 type ParameterizedQuery struct {
 	QueryString string
+	QueryHash   string
 	Resolvables []map[string]interface{}
 }
 
@@ -26,5 +29,9 @@ func (q *ParameterizedQuery) populateParameters(parameters ...string) (string, e
 		}
 	}
 	return sb.String(), nil
+}
 
+func (q *ParameterizedQuery) generateQueryHash() {
+	hash := md5.Sum([]byte(q.QueryString))
+	q.QueryHash = hex.EncodeToString(hash[:])
 }
