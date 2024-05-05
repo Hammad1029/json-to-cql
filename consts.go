@@ -1,11 +1,11 @@
 package jsontocql
 
-var queryTypes = map[string]string{
-	"select": "SELECT",
-	"insert": "INSERT",
-	"update": "UPDATE",
-	"delete": "DELETE",
-}
+const (
+	Select = "SELECT"
+	Update = "INSERT"
+	Insert = "UPDATE"
+	Delete = "DELETE"
+)
 
 const asNotAllowed = "null"
 
