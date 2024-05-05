@@ -12,6 +12,7 @@ type ParameterizedQuery struct {
 	QueryString string
 	QueryHash   string
 	Resolvables []map[string]interface{}
+	Type        string
 }
 
 func (q *ParameterizedQuery) populateParameters(parameters ...string) (string, error) {

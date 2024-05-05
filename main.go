@@ -36,6 +36,7 @@ func (q *QueryDoc) createSelect() (ParameterizedQuery, error) {
 		return ParameterizedQuery{}, err
 	}
 
+	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
 		"%s %s FROM %s %s", queryTypes["select"], projections, q.Table, conditions,
 	))
@@ -61,6 +62,7 @@ func (q *QueryDoc) createInsert() (ParameterizedQuery, error) {
 		values = append(values, val)
 	}
 
+	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
 		"%s INTO %s (%s) VALUES (%s)", queryTypes["insert"], q.Table, strings.Join(columns, ","), strings.Join(values, ","),
 	))
@@ -90,6 +92,7 @@ func (q *QueryDoc) createUpdate() (ParameterizedQuery, error) {
 	}
 	setStr = strings.TrimSuffix(setStr, ", ")
 
+	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
 		"%s %s SET %s %s", queryTypes["update"], q.Table, setStr, conditions,
 	))
@@ -118,6 +121,7 @@ func (q *QueryDoc) createDelete() (ParameterizedQuery, error) {
 	}
 	query.Resolvables = resolvables
 
+	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
 		"%s%sFROM %s %s", queryTypes["delete"], colsList, q.Table, conditions,
 	))
