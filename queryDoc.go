@@ -77,7 +77,7 @@ func (q *QueryDoc) getColumnValues() (map[string]string, []map[string]interface{
 				return nil, nil, errors.New("could not typecast map")
 			}
 		case reflect.String:
-			colValPairs[col] = fmt.Sprintf("'%s'", val)
+			colValPairs[col] = fmt.Sprintf("%s", val)
 		default:
 			colValPairs[col] = fmt.Sprint(val)
 		}

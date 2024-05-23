@@ -9,10 +9,10 @@ import (
 )
 
 type ParameterizedQuery struct {
-	QueryString string
-	QueryHash   string
-	Resolvables []map[string]interface{}
-	Type        string
+	QueryString string                   `json:"queryString"`
+	QueryHash   string                   `json:"queryHash"`
+	Resolvables []map[string]interface{} `json:"resolvables"`
+	Type        string                   `json:"type"`
 }
 
 func (q *ParameterizedQuery) populateParameters(parameters ...string) (string, error) {

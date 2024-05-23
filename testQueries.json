@@ -20,7 +20,7 @@
       "type": "INSERT",
       "table": "table1",
       "columns": {
-        "a": "b",
+        "a": "'b'",
         "b": { "type": "req", "data": { "get": "a.b.c" } }
       },
       "conditions": {},
@@ -33,7 +33,7 @@
       "type": "UPDATE",
       "table": "table1",
       "columns": {
-        "a": "b",
+        "a": "'b'",
         "b": { "type": "req", "data": { "get": "a.b.c" } }
       },
       "conditions": {
@@ -43,13 +43,14 @@
     }
   },
   {
-    "queryString": "DELETE FROM table1 WHERE a=?",
+    "queryString": "DELETE FROM table1 WHERE a=? and b!='c'",
     "queryJSON": {
       "type": "DELETE",
       "table": "table1",
       "columns": {},
       "conditions": {
-        "a": { "eq": { "type": "req", "data": { "get": "a.b.c" } } }
+        "a": { "eq": { "type": "req", "data": { "get": "a.b.c" } } },
+        "b": { "ne": "'c'" }
       },
       "projections": {}
     }
@@ -70,6 +71,42 @@
         }
       },
       "columns": {}
+    }
+  },
+  {
+    "queryString": "INSERT INTO table_table1_62566050_185f_11ef_bf29_001 (int1,text2,int2,text1,int13) VALUES (?,'yooo',3,'hello',2)",
+    "queryJSON": {
+      "type": "INSERT",
+      "table": "table_table1_62566050_185f_11ef_bf29_001",
+      "columns": {
+        "int1": { "type": "req", "data": { "get": "a.b.d" } },
+        "text2": "'yooo'",
+        "int2": 3,
+        "text1": "'hello'",
+        "int13": 2
+      },
+      "conditions": {},
+      "projections": {}
+    }
+  },
+  {
+    "queryString": "DELETE FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=? and text2='yooo'",
+    "queryJSON": {
+      "type": "DELETE",
+      "table": "table_table1_62566050_185f_11ef_bf29_001",
+      "columns": {},
+      "conditions": {
+        "int1": {
+          "eq": {
+            "type": "req",
+            "data": {
+              "get": "a.b.c"
+            }
+          }
+        },
+        "text2": { "eq": "'yooo'" }
+      },
+      "projections": {}
     }
   }
 ]
