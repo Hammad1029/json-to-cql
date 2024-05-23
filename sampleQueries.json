@@ -5,24 +5,11 @@
       "type": "SELECT",
       "table": "table1",
       "conditions": {
-        "a": {
-          "eq": {
-            "type": "req",
-            "data": {
-              "get": "a.b.c"
-            }
-          }
-        }
+        "a": { "eq": { "type": "req", "data": { "get": "a.b.c" } } }
       },
       "projections": {
-        "a": {
-          "as": "first",
-          "mutate": ["sum", "md5"]
-        },
-        "b": {
-          "as": "null",
-          "mutate": []
-        }
+        "a": { "as": "first", "mutate": ["sum", "md5"] },
+        "b": { "as": "null", "mutate": [] }
       },
       "columns": {}
     }
@@ -34,12 +21,7 @@
       "table": "table1",
       "columns": {
         "a": "b",
-        "b": {
-          "type": "req",
-          "data": {
-            "get": "a.b.c"
-          }
-        }
+        "b": { "type": "req", "data": { "get": "a.b.c" } }
       },
       "conditions": {},
       "projections": {}
@@ -52,22 +34,10 @@
       "table": "table1",
       "columns": {
         "a": "b",
-        "b": {
-          "type": "req",
-          "data": {
-            "get": "a.b.c"
-          }
-        }
+        "b": { "type": "req", "data": { "get": "a.b.c" } }
       },
       "conditions": {
-        "a": {
-          "eq": {
-            "type": "req",
-            "data": {
-              "get": "a.b.c"
-            }
-          }
-        }
+        "a": { "eq": { "type": "req", "data": { "get": "a.b.c" } } }
       },
       "projections": {}
     }
@@ -79,14 +49,7 @@
       "table": "table1",
       "columns": {},
       "conditions": {
-        "a": {
-          "eq": {
-            "type": "req",
-            "data": {
-              "get": "a.b.c"
-            }
-          }
-        }
+        "a": { "eq": { "type": "req", "data": { "get": "a.b.c" } } }
       },
       "projections": {}
     }

@@ -2,8 +2,8 @@ package jsontocql
 
 const (
 	Select = "SELECT"
-	Update = "INSERT"
-	Insert = "UPDATE"
+	Insert = "INSERT"
+	Update = "UPDATE"
 	Delete = "DELETE"
 )
 
