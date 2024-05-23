@@ -27,8 +27,8 @@ func TestParameterizedQuery(t *testing.T) {
 		} else {
 			t.Logf("EXPECTED: %s", q.QueryString)
 			t.Logf("RECIEVED: %s", parameterizedQuery.QueryString)
-			if equal, err := compareStatements(q.QueryString, parameterizedQuery.QueryString); err != nil {
-				t.Fatalf(`CreateParameterizedQuery | compareStatements failed with error: %v`, err)
+			if equal, err := q.compareStatement(parameterizedQuery.QueryString); err != nil {
+				t.Fatalf(`CreateParameterizedQuery | compareStatement failed with error: %v`, err)
 			} else if !equal {
 				t.Fatalf("CreateParameterizedQuery failed for query %v", idx)
 			}
@@ -39,28 +39,28 @@ func TestParameterizedQuery(t *testing.T) {
 	fmt.Println()
 }
 
-// func TestResolveQuery(t *testing.T) {
-// 	fmt.Println()
-// 	parameters := []string{"a", "b", "c"}
-// 	queryDocs, err := getQueryDocs(t)
-// 	if err != nil {
-// 		t.Fatalf(`getQueryDocs failed with error: %v`, err)
-// 	}
-// 	for idx, q := range queryDocs {
-// 		t.Logf("TestResolveQuery running for query %v", idx)
-// 		if parameterizedQuery, err := q.QueryJSON.CreateParameterizedQuery(); err != nil {
-// 			t.Fatalf(`TestResolveQuery failed with error: %v`, err)
-// 		} else if resolvedQuery, err := parameterizedQuery.ResolveQuery(parameters...); err != nil {
-// 			t.Fatalf(`TestResolveQuery failed with error: %v`, err)
-// 		} else {
-// 			t.Logf("%s resolves to %s", parameterizedQuery.QueryString, resolvedQuery)
-// 			t.Log("TestResolveQuery passed")
-// 			t.Log()
-// 		}
+func TestResolveQuery(t *testing.T) {
+	fmt.Println()
+	parameters := []string{"a", "b", "c"}
+	queryDocs, err := getQueryDocs(t)
+	if err != nil {
+		t.Fatalf(`getQueryDocs failed with error: %v`, err)
+	}
+	for idx, q := range queryDocs {
+		t.Logf("TestResolveQuery running for query %v", idx)
+		if parameterizedQuery, err := q.QueryJSON.CreateParameterizedQuery(); err != nil {
+			t.Fatalf(`TestResolveQuery failed with error: %v`, err)
+		} else if resolvedQuery, err := parameterizedQuery.ResolveQuery(parameters...); err != nil {
+			t.Fatalf(`TestResolveQuery failed with error: %v`, err)
+		} else {
+			t.Logf("%s resolves to %s", parameterizedQuery.QueryString, resolvedQuery)
+			t.Log("TestResolveQuery passed")
+			t.Log()
+		}
 
-// 	}
-// 	fmt.Println()
-// }
+	}
+	fmt.Println()
+}
 
 func getQueryDocs(t *testing.T) ([]testQuery, error) {
 	jsonFile, err := os.Open("./testQueries.json")
@@ -81,7 +81,7 @@ func getQueryDocs(t *testing.T) ([]testQuery, error) {
 	return queryDocs, nil
 }
 
-func compareStatements(sql1, sql2 string) (bool, error) {
+func (q *testQuery) compareStatement(sql2 string) (bool, error) {
 	parseSQL := func(sql string) (string, map[string]string, error) {
 		sql = strings.TrimSpace(sql)
 		sql = strings.ToLower(sql)
@@ -175,7 +175,7 @@ func compareStatements(sql1, sql2 string) (bool, error) {
 		return sql, colValMap, nil
 	}
 
-	_, colValMap1, err1 := parseSQL(sql1)
+	_, colValMap1, err1 := parseSQL(q.QueryString)
 	_, colValMap2, err2 := parseSQL(sql2)
 
 	if err1 != nil || err2 != nil {

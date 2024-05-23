@@ -65,10 +65,7 @@
         "text2": { "eq": "'yooo'" }
       },
       "projections": {
-        "int1": {
-          "as": "first",
-          "mutate": []
-        }
+        "int1": { "as": "first", "mutate": [] }
       },
       "columns": {}
     }
@@ -96,14 +93,7 @@
       "table": "table_table1_62566050_185f_11ef_bf29_001",
       "columns": {},
       "conditions": {
-        "int1": {
-          "eq": {
-            "type": "req",
-            "data": {
-              "get": "a.b.c"
-            }
-          }
-        },
+        "int1": { "eq": { "type": "req", "data": { "get": "a.b.c" } } },
         "text2": { "eq": "'yooo'" }
       },
       "projections": {}

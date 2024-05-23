@@ -4,7 +4,6 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
-	"fmt"
 	"strings"
 )
 
@@ -23,7 +22,7 @@ func (q *ParameterizedQuery) populateParameters(parameters ...string) (string, e
 	currParam := 0
 	for _, char := range q.QueryString {
 		if char == '?' {
-			sb.WriteString(fmt.Sprintf("'%s'", parameters[currParam]))
+			sb.WriteString(parameters[currParam])
 			currParam++
 		} else {
 			sb.WriteByte(byte(char))
