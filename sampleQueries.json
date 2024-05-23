@@ -53,5 +53,23 @@
       },
       "projections": {}
     }
+  },
+  {
+    "queryString": "SELECT int1 as first FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=? and text2='yooo'",
+    "queryJSON": {
+      "type": "SELECT",
+      "table": "table_table1_62566050_185f_11ef_bf29_001",
+      "conditions": {
+        "int1": { "eq": { "type": "req", "data": { "get": "a.b.d" } } },
+        "text2": { "eq": "'yooo'" }
+      },
+      "projections": {
+        "int1": {
+          "as": "first",
+          "mutate": []
+        }
+      },
+      "columns": {}
+    }
   }
 ]
