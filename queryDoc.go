@@ -55,7 +55,7 @@ func (q *QueryDoc) getConditions() (string, []map[string]interface{}, error) {
 						return "", nil, errors.New("could not typecast map")
 					}
 				}
-				queryChunk.WriteString(fmt.Sprintf(" %s%s%s and", col, opRes, operand))
+				queryChunk.WriteString(fmt.Sprintf(" %s%s%v and", col, opRes, operand))
 			} else {
 				return "", nil, errors.New("operator not supported")
 			}
