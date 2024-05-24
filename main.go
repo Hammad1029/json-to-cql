@@ -38,7 +38,7 @@ func (q *QueryDoc) createSelect() (ParameterizedQuery, error) {
 
 	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
-		"%s %s FROM %s %s", Select, projections, q.Table, conditions,
+		"%s %s FROM %s %s;", Select, projections, q.Table, conditions,
 	))
 
 	query.generateQueryHash()
@@ -64,7 +64,7 @@ func (q *QueryDoc) createInsert() (ParameterizedQuery, error) {
 
 	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
-		"%s INTO %s (%s) VALUES (%s)", Insert, q.Table, strings.Join(columns, ","), strings.Join(values, ","),
+		"%s INTO %s (%s) VALUES (%s);", Insert, q.Table, strings.Join(columns, ","), strings.Join(values, ","),
 	))
 
 	query.generateQueryHash()
@@ -94,7 +94,7 @@ func (q *QueryDoc) createUpdate() (ParameterizedQuery, error) {
 
 	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
-		"%s %s SET %s %s", Update, q.Table, setStr, conditions,
+		"%s %s SET %s %s;", Update, q.Table, setStr, conditions,
 	))
 
 	query.generateQueryHash()
@@ -123,7 +123,7 @@ func (q *QueryDoc) createDelete() (ParameterizedQuery, error) {
 
 	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
-		"%s%sFROM %s %s", Delete, colsList, q.Table, conditions,
+		"%s%sFROM %s %s;", Delete, colsList, q.Table, conditions,
 	))
 
 	query.generateQueryHash()
