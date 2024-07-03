@@ -49,18 +49,8 @@ func (q *QueryDoc) createSelect() (ParameterizedQuery, error) {
 func (q *QueryDoc) createInsert() (ParameterizedQuery, error) {
 	query := ParameterizedQuery{}
 
-	colValPairs, resolvables, err := q.getColumnValues()
-	if err != nil {
-		return query, err
-	}
+	columns, values, resolvables := q.getColumnValues()
 	query.Resolvables = resolvables
-
-	columns := []string{}
-	values := []string{}
-	for col, val := range colValPairs {
-		columns = append(columns, col)
-		values = append(values, val)
-	}
 
 	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
@@ -75,10 +65,7 @@ func (q *QueryDoc) createInsert() (ParameterizedQuery, error) {
 func (q *QueryDoc) createUpdate() (ParameterizedQuery, error) {
 	query := ParameterizedQuery{}
 
-	colValuePairs, resolvables, err := q.getColumnValues()
-	if err != nil {
-		return query, err
-	}
+	columns, values, resolvables := q.getColumnValues()
 	query.Resolvables = resolvables
 	conditions, resolvables, err := q.getConditions()
 	if err != nil {
@@ -87,8 +74,8 @@ func (q *QueryDoc) createUpdate() (ParameterizedQuery, error) {
 	query.Resolvables = append(query.Resolvables, resolvables...)
 
 	setStr := ""
-	for col, val := range colValuePairs {
-		setStr += fmt.Sprintf("%s=%s, ", col, val)
+	for idx, val := range columns {
+		setStr += fmt.Sprintf("%s=%s, ", val, values[idx])
 	}
 	setStr = strings.TrimSuffix(setStr, ", ")
 
@@ -105,12 +92,11 @@ func (q *QueryDoc) createUpdate() (ParameterizedQuery, error) {
 func (q *QueryDoc) createDelete() (ParameterizedQuery, error) {
 	query := ParameterizedQuery{}
 
-	columns, _, err := q.getColumnValues()
-	if err != nil {
-		return query, err
-	}
+	columns, _, resolvables := q.getColumnValues()
+	query.Resolvables = resolvables
+
 	colsList := " "
-	for col, _ := range columns {
+	for _, col := range columns {
 		colsList += fmt.Sprintf("%s, ", col)
 	}
 	colsList = strings.TrimSuffix(colsList, ", ")

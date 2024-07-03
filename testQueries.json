@@ -4,114 +4,197 @@
     "queryJSON": {
       "type": "SELECT",
       "table": "table1",
-      "conditions": {
-        "a": { "eq": { "type": "req", "data": { "get": "a.b.c" } } }
-      },
-      "projections": {
-        "a": { "as": "first", "mutate": ["sum", "md5"] },
-        "b": { "as": "null", "mutate": [] }
-      },
-      "columns": {}
+      "conditions": [
+        {
+          "column": "a",
+          "operand": "eq",
+          "data": { "type": "req", "data": { "get": "a.b.c" } }
+        }
+      ],
+      "projections": [
+        {
+          "column": "a",
+          "as": "first",
+          "mutations": ["sum", "md5"]
+        },
+        {
+          "column": "b",
+          "as": "null",
+          "mutations": []
+        }
+      ],
+      "columns": []
     }
   },
   {
-    "queryString": "INSERT INTO table1 (a,b) VALUES ('b',?);",
+    "queryString": "INSERT INTO table1 (a,b) VALUES (?,?);",
     "queryJSON": {
       "type": "INSERT",
       "table": "table1",
-      "columns": {
-        "a": "'b'",
-        "b": { "type": "req", "data": { "get": "a.b.c" } }
-      },
-      "conditions": {},
-      "projections": {}
+      "columns": [
+        {
+          "column": "a",
+          "data": { "type": "const", "data": { "get": "b" } }
+        },
+        {
+          "column": "b",
+          "data": { "type": "req", "data": { "get": "a.b.c" } }
+        }
+      ],
+      "conditions": [],
+      "projections": []
     }
   },
   {
-    "queryString": "UPDATE table1 SET a='b', b=? WHERE a=?;",
+    "queryString": "UPDATE table1 SET a=?, b=? WHERE a=?;",
     "queryJSON": {
       "type": "UPDATE",
       "table": "table1",
-      "columns": {
-        "a": "'b'",
-        "b": { "type": "req", "data": { "get": "a.b.c" } }
-      },
-      "conditions": {
-        "a": { "eq": { "type": "req", "data": { "get": "a.b.c" } } }
-      },
-      "projections": {}
+      "columns": [
+        {
+          "column": "a",
+          "data": { "type": "const", "data": { "get": "b" } }
+        },
+        {
+          "column": "b",
+          "data": { "type": "req", "data": { "get": "a.b.c" } }
+        }
+      ],
+      "conditions": [
+        {
+          "column": "a",
+          "operand": "eq",
+          "data": { "type": "req", "data": { "get": "a.b.c" } }
+        }
+      ],
+      "projections": []
     }
   },
   {
-    "queryString": "DELETE FROM table1 WHERE a=? and b!='c';",
+    "queryString": "DELETE FROM table1 WHERE a=? and b!=?;",
     "queryJSON": {
       "type": "DELETE",
       "table": "table1",
-      "columns": {},
-      "conditions": {
-        "a": { "eq": { "type": "req", "data": { "get": "a.b.c" } } },
-        "b": { "ne": "'c'" }
-      },
-      "projections": {}
+      "columns": [],
+      "conditions": [
+        {
+          "column": "a",
+          "operand": "eq",
+          "data": { "type": "req", "data": { "get": "a.b.c" } }
+        },
+        {
+          "column": "b",
+          "operand": "ne",
+          "data": { "type": "const", "data": { "get": "c" } }
+        }
+      ],
+      "projections": []
     }
   },
   {
-    "queryString": "SELECT int1 as first FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=? and text2='yooo';",
+    "queryString": "SELECT int1 as first FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=? and text2=?;",
     "queryJSON": {
       "type": "SELECT",
       "table": "table_table1_62566050_185f_11ef_bf29_001",
-      "conditions": {
-        "int1": { "eq": { "type": "req", "data": { "get": "a.b.d" } } },
-        "text2": { "eq": "'yooo'" }
-      },
-      "projections": {
-        "int1": { "as": "first", "mutate": [] }
-      },
-      "columns": {}
+      "conditions": [
+        {
+          "column": "int1",
+          "operand": "eq",
+          "data": { "type": "req", "data": { "get": "a.b.d" } }
+        },
+        {
+          "column": "text2",
+          "operand": "eq",
+          "data": { "type": "const", "data": { "get": "yooo" } }
+        }
+      ],
+      "projections": [
+        {
+          "column": "int1",
+          "as": "first",
+          "mutations": []
+        }
+      ],
+      "columns": []
     }
   },
   {
-    "queryString": "SELECT int1 as first FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=1 and text2='yooo';",
+    "queryString": "SELECT int1 as first FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=? and text2=?;",
     "queryJSON": {
       "type": "SELECT",
       "table": "table_table1_62566050_185f_11ef_bf29_001",
-      "conditions": {
-        "int1": { "eq": 1 },
-        "text2": { "eq": "'yooo'" }
-      },
-      "projections": {
-        "int1": { "as": "first", "mutate": [] }
-      },
-      "columns": {}
+      "conditions": [
+        {
+          "column": "int1",
+          "operand": "eq",
+          "data": { "type": "const", "data": { "get": 1 } }
+        },
+        {
+          "column": "text2",
+          "operand": "eq",
+          "data": { "type": "const", "data": { "get": "yooo" } }
+        }
+      ],
+      "projections": [
+        {
+          "column": "int1",
+          "as": "first",
+          "mutations": []
+        }
+      ],
+      "columns": []
     }
   },
   {
-    "queryString": "INSERT INTO table_table1_62566050_185f_11ef_bf29_001 (int1,text2,int2,text1,int13) VALUES (?,'yooo',3,'hello',2);",
+    "queryString": "INSERT INTO table_table1_62566050_185f_11ef_bf29_001 (int1,text2,int2,text1,int13) VALUES (?,?,?,?,?);",
     "queryJSON": {
       "type": "INSERT",
       "table": "table_table1_62566050_185f_11ef_bf29_001",
-      "columns": {
-        "int1": { "type": "req", "data": { "get": "a.b.d" } },
-        "text2": "'yooo'",
-        "int2": 3,
-        "text1": "'hello'",
-        "int13": 2
-      },
-      "conditions": {},
-      "projections": {}
+      "columns": [
+        {
+          "column": "int1",
+          "data": { "type": "req", "data": { "get": "a.b.d" } }
+        },
+        {
+          "column": "text2",
+          "data": { "type": "const", "data": { "get": "yooo" } }
+        },
+        {
+          "column": "int2",
+          "data": { "type": "const", "data": { "get": 3 } }
+        },
+        {
+          "column": "text1",
+          "data": { "type": "const", "data": { "get": "hello" } }
+        },
+        {
+          "column": "int13",
+          "data": { "type": "const", "data": { "get": 2 } }
+        }
+      ],
+      "conditions": [],
+      "projections": []
     }
   },
   {
-    "queryString": "DELETE FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=? and text2='yooo';",
+    "queryString": "DELETE FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=? and text2=?;",
     "queryJSON": {
       "type": "DELETE",
       "table": "table_table1_62566050_185f_11ef_bf29_001",
-      "columns": {},
-      "conditions": {
-        "int1": { "eq": { "type": "req", "data": { "get": "a.b.c" } } },
-        "text2": { "eq": "'yooo'" }
-      },
-      "projections": {}
+      "columns": [],
+      "conditions": [
+        {
+          "column": "int1",
+          "operand": "eq",
+          "data": { "type": "req", "data": { "get": "a.b.c" } }
+        },
+        {
+          "column": "text2",
+          "operand": "eq",
+          "data": { "type": "const", "data": { "get": "yooo" } }
+        }
+      ],
+      "projections": []
     }
   }
 ]
