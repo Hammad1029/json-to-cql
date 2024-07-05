@@ -41,7 +41,7 @@ func TestParameterizedQuery(t *testing.T) {
 
 func TestResolveQuery(t *testing.T) {
 	fmt.Println()
-	parameters := []string{"a", "b", "c", "d", "e", "f"}
+	parameters := []interface{}{"a", 10, "c", "d", "e", "f"}
 	queryDocs, err := getQueryDocs(t)
 	if err != nil {
 		t.Fatalf(`getQueryDocs failed with error: %v`, err)

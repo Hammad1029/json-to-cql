@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"strings"
 )
 
@@ -14,16 +15,22 @@ type ParameterizedQuery struct {
 	Type        string       `json:"type"`
 }
 
-func (q *ParameterizedQuery) populateParameters(parameters ...string) (string, error) {
+func (q *ParameterizedQuery) populateParameters(parameters ...interface{}) (string, error) {
 	if len(parameters) < strings.Count(q.QueryString, "?") {
 		return "", errors.New("parameters count low")
 	}
 	var sb strings.Builder
-	currParam := 0
+	paramIdx := 0
 	for _, char := range q.QueryString {
 		if char == '?' {
-			sb.WriteString(parameters[currParam])
-			currParam++
+			currParam := parameters[paramIdx]
+			switch currParam.(type) {
+			case string:
+				sb.WriteString(fmt.Sprintf("'%s'", currParam))
+			default:
+				sb.WriteString(fmt.Sprint(currParam))
+			}
+			paramIdx++
 		} else {
 			sb.WriteByte(byte(char))
 		}
