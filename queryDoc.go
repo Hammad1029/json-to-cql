@@ -8,6 +8,7 @@ import (
 type QueryDoc struct {
 	Type        string       `json:"type"`
 	Table       string       `json:"table"`
+	Rows        int          `json:"rows"`
 	Conditions  []Condition  `json:"conditions"`
 	Projections []Projection `json:"projections"`
 	Columns     []Column     `json:"columns"`

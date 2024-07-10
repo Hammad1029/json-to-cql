@@ -38,8 +38,14 @@ func (q *QueryDoc) createSelect() (ParameterizedQuery, error) {
 
 	query.Type = q.Type
 	query.QueryString = strings.TrimSpace(fmt.Sprintf(
-		"%s %s FROM %s %s;", Select, projections, q.Table, conditions,
+		"%s %s FROM %s %s", Select, projections, q.Table, conditions,
 	))
+
+	if q.Rows == 0 {
+		query.QueryString += ";"
+	} else {
+		query.QueryString += fmt.Sprintf(" LIMIT %d;", q.Rows)
+	}
 
 	query.generateQueryHash()
 

@@ -1,9 +1,10 @@
 [
   {
-    "queryString": "SELECT md5(sum(a)) as first FROM table1 WHERE a=?;",
+    "queryString": "SELECT md5(sum(a)) as first FROM table1 WHERE a=? LIMIT 1;",
     "queryJSON": {
       "type": "SELECT",
       "table": "table1",
+      "rows": 1,
       "conditions": [
         {
           "column": "a",
@@ -96,6 +97,7 @@
     "queryJSON": {
       "type": "SELECT",
       "table": "table_table1_62566050_185f_11ef_bf29_001",
+      "rows": 0,
       "conditions": [
         {
           "column": "int1",
@@ -119,10 +121,11 @@
     }
   },
   {
-    "queryString": "SELECT int1 as first FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=? and text2=?;",
+    "queryString": "SELECT int1 as first FROM table_table1_62566050_185f_11ef_bf29_001 WHERE int1=? and text2=? LIMIT 10;",
     "queryJSON": {
       "type": "SELECT",
       "table": "table_table1_62566050_185f_11ef_bf29_001",
+      "rows": 10,
       "conditions": [
         {
           "column": "int1",
