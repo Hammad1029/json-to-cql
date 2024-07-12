@@ -18,6 +18,6 @@ type Projection struct {
 }
 
 type Resolvable struct {
-	ResolveType string                 `json:"type"`
-	ResolveData map[string]interface{} `json:"data"`
+	ResolveType string                 `json:"resolveType"`
+	ResolveData map[string]interface{} `json:"resolveDaata"`
 }
