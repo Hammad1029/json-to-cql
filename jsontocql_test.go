@@ -50,7 +50,7 @@ func TestResolveQuery(t *testing.T) {
 		t.Logf("TestResolveQuery running for query %v", idx)
 		if parameterizedQuery, err := q.QueryJSON.CreateParameterizedQuery(); err != nil {
 			t.Fatalf(`TestResolveQuery failed with error: %v`, err)
-		} else if resolvedQuery, err := parameterizedQuery.ResolveQuery(parameters...); err != nil {
+		} else if resolvedQuery, err := parameterizedQuery.ResolveQuery(parameters); err != nil {
 			t.Fatalf(`TestResolveQuery failed with error: %v`, err)
 		} else {
 			t.Logf("%s resolves to %s", parameterizedQuery.QueryString, resolvedQuery)

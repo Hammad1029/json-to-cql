@@ -15,7 +15,7 @@ type ParameterizedQuery struct {
 	Type        string       `json:"type" mapstructure:"type"`
 }
 
-func (q *ParameterizedQuery) populateParameters(parameters ...interface{}) (string, error) {
+func (q *ParameterizedQuery) populateParameters(parameters []interface{}) (string, error) {
 	if len(parameters) < strings.Count(q.QueryString, "?") {
 		return "", errors.New("parameters count low")
 	}

@@ -21,8 +21,8 @@ func (q *QueryDoc) CreateParameterizedQuery() (ParameterizedQuery, error) {
 	}
 }
 
-func (q *ParameterizedQuery) ResolveQuery(parameters ...interface{}) (string, error) {
-	return q.populateParameters(parameters...)
+func (q *ParameterizedQuery) ResolveQuery(parameters []interface{}) (string, error) {
+	return q.populateParameters(parameters)
 }
 
 func (q *QueryDoc) createSelect() (ParameterizedQuery, error) {
