@@ -11,8 +11,8 @@ import (
 )
 
 type testQuery struct {
-	QueryJSON   QueryDoc `json:"queryJSON"`
-	QueryString string   `json:"queryString"`
+	QueryJSON   QueryDoc `json:"queryJSON" mapstructure:"queryJSON"`
+	QueryString string   `json:"queryString" mapstructure:"queryString"`
 }
 
 func TestParameterizedQuery(t *testing.T) {

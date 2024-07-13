@@ -6,12 +6,12 @@ import (
 )
 
 type QueryDoc struct {
-	Type        string       `json:"type"`
-	Table       string       `json:"table"`
-	Rows        int          `json:"rows"`
-	Conditions  []Condition  `json:"conditions"`
-	Projections []Projection `json:"projections"`
-	Columns     []Column     `json:"columns"`
+	Type        string       `json:"type" mapstructure:"type"`
+	Table       string       `json:"table" mapstructure:"table"`
+	Rows        int          `json:"rows" mapstructure:"rows"`
+	Conditions  []Condition  `json:"conditions" mapstructure:"conditions"`
+	Projections []Projection `json:"projections" mapstructure:"projections"`
+	Columns     []Column     `json:"columns" mapstructure:"columns"`
 }
 
 func (q *QueryDoc) getProjections() string {
