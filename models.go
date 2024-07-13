@@ -3,12 +3,12 @@ package jsontocql
 type Condition struct {
 	Column  string     `json:"column" mapstructure:"column"`
 	Operand string     `json:"operand" mapstructure:"operand"`
-	Data    Resolvable `json:"resolvable" mapstructure:"resolvable"`
+	Data    Resolvable `json:"data" mapstructure:"data"`
 }
 
 type Column struct {
 	Column string     `json:"column" mapstructure:"column"`
-	Data   Resolvable `json:"resolvable" mapstructure:"resolvable"`
+	Data   Resolvable `json:"data" mapstructure:"data"`
 }
 
 type Projection struct {
