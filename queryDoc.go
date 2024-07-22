@@ -16,6 +16,9 @@ type QueryDoc struct {
 
 func (q *QueryDoc) getProjections() string {
 	var queryChunk strings.Builder
+	if len(q.Projections) == 0 {
+		return "*"
+	}
 	for _, proj := range q.Projections {
 		if proj.As == asNotAllowed {
 			continue
